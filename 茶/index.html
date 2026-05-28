@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>传统制茶非遗 | 首页</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --ink-blue: #1E2A28;
+      --ochre-red: #9A5C42;
+      --ochre-light: #C17A5C;
+      --dusky-cyan: #BAC7C3;
+      --gold-glimmer: #DBCB9E;
+      --card-bg: rgba(30, 42, 40, 0.68);
+      --border-dim: rgba(154, 92, 66, 0.35);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans SC', '思源黑体', 'Noto Serif SC', '思源宋体', 'Microsoft YaHei', sans-serif;
+      font-weight: 300;
+      background-color: var(--ink-blue);
+      color: var(--dusky-cyan);
+      line-height: 1.55;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        repeating-radial-gradient(circle at 20% 30%, rgba(200, 180, 130, 0.04) 1px, transparent 1px),
+        repeating-linear-gradient(0deg, rgba(160, 140, 100, 0.05) 0px, rgba(160, 140, 100, 0.05) 1px, transparent 1px, transparent 4px),
+        repeating-linear-gradient(45deg, rgba(120, 100, 70, 0.03) 0px, rgba(120, 100, 70, 0.03) 2px, transparent 2px, transparent 8px);
+      background-size: 180px 180px, auto, auto;
+      opacity: 0.65;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(30, 42, 40, 0.4);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container,
+    .navbar,
+    footer,
+    .hero-banner,
+    .card {
+      position: relative;
+      z-index: 2;
+    }
+
+    h1,
+    h2,
+    h3,
+    .section-title,
+    .navbar-brand,
+    .card-title {
+      font-family: '华文宋体', '宋体', 'SimSun', 'Noto Serif SC', serif;
+      font-weight: 500;
+      color: var(--ochre-red);
+      letter-spacing: 0.02em;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 0 6px rgba(219, 203, 158, 0.4);
+    }
+
+    h1::after,
+    .section-title::after {
+      content: "✨  ✨";
+      font-size: 0.65rem;
+      letter-spacing: 6px;
+      display: block;
+      text-align: center;
+      color: var(--gold-glimmer);
+      text-shadow: 0 0 5px #dbc79e;
+      margin-top: 6px;
+      opacity: 0.9;
+    }
+
+    h2::before {
+      content: "❀";
+      margin-right: 8px;
+      color: var(--ochre-light);
+      display: inline-block;
+      filter: drop-shadow(0 0 2px var(--gold-glimmer));
+    }
+
+    p,
+    li,
+    .nav-link,
+    .btn,
+    .card-text,
+    footer p {
+      color: var(--dusky-cyan);
+      font-weight: 300;
+    }
+
+    .navbar {
+      background: rgba(24, 35, 33, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-dim);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar:hover {
+      box-shadow: 0 6px 20px rgba(219, 203, 158, 0.15);
+      border-bottom-color: rgba(219, 203, 158, 0.6);
+    }
+
+    .navbar-brand {
+      font-size: 1.8rem;
+      font-family: '华文楷书', '华文行书', '华文宋体', 'Noto Serif SC', serif;
+      font-weight: 600;
+      background: linear-gradient(135deg, #e4c8a0, #c69c6d);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent !important;
+      text-shadow: none;
+      position: relative;
+      letter-spacing: 2px;
+    }
+
+    .navbar-brand::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-glimmer), var(--ochre-light), var(--gold-glimmer), transparent);
+      opacity: 0.6;
+    }
+
+    .navbar-nav .nav-link {
+      position: relative;
+      transition: all 0.25s;
+      margin: 0 4px;
+      padding: 8px 12px;
+      border-radius: 30px;
+    }
+
+    .navbar-nav .nav-link.active,
+    .navbar-nav .nav-link:hover {
+      color: var(--ochre-light) !important;
+      text-shadow: 0 0 6px rgba(193, 122, 92, 0.6);
+      background: rgba(219, 203, 158, 0.08);
+      box-shadow: 0 0 8px rgba(219, 203, 158, 0.3);
+    }
+
+    .btn-custom {
+      background: var(--ochre-red);
+      border: 1px solid var(--gold-glimmer);
+      color: #f5efdf;
+      border-radius: 40px;
+      padding: 6px 22px;
+      transition: 0.3s;
+      font-family: inherit;
+      font-weight: 400;
+    }
+
+    .btn-custom:hover {
+      background: var(--ochre-light);
+      color: #1E2A28;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(154, 92, 66, 0.4);
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(4px);
+      border: 1px solid var(--border-dim);
+      border-radius: 28px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 20%, rgba(219, 203, 158, 0.08), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.6s;
+      pointer-events: none;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: var(--ochre-light);
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.35), 0 0 12px rgba(219, 203, 158, 0.2);
+    }
+
+    .uniform-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 28px 28px 12px 12px;
+    }
+
+    .card-body .btn-custom {
+      pointer-events: auto;
+      cursor: pointer;
+      z-index: 3;
+      position: relative;
+    }
+
+    .card-body {
+      pointer-events: none;
+    }
+
+    .card-body .btn-custom {
+      pointer-events: auto;
+    }
+
+    .hero-banner {
+      position: relative;
+      width: 100%;
+      height: 460px;
+      overflow: hidden;
+      border-radius: 0 0 48px 48px;
+      margin-top: 70px;
+    }
+
+    .hero-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.6) contrast(1.05);
+    }
+
+    .hero-banner .banner-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      width: 85%;
+      z-index: 3;
+    }
+
+    .hero-banner h1 {
+      font-size: 4rem;
+      font-weight: 700;
+      text-shadow: 0 4px 18px rgba(0, 0, 0, 0.8);
+      margin-bottom: 12px;
+      letter-spacing: 4px;
+    }
+
+    .hero-banner p {
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      opacity: 0.92;
+      font-weight: 400;
+      text-shadow: 0 2px 6px #000000aa;
+    }
+
+    .hero-banner::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(0deg, rgba(20, 30, 28, 0.65), rgba(20, 30, 28, 0.45));
+      z-index: 1;
+    }
+
+    footer {
+      background: rgba(18, 28, 26, 0.9);
+      backdrop-filter: blur(4px);
+      border-top: 1px solid var(--border-dim);
+      margin-top: 2rem;
+    }
+
+    footer a {
+      color: var(--dusky-cyan);
+      transition: 0.2s;
+    }
+
+    footer a:hover {
+      color: var(--ochre-light);
+    }
+
+    .section-title {
+      position: relative;
+      padding-bottom: 12px;
+    }
+
+    .section-title::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold-glimmer), var(--ochre-light), var(--gold-glimmer), transparent);
+      border-radius: 2px;
+      box-shadow: 0 0 6px 1px rgba(219, 203, 158, 0.6);
+    }
+
+    .btn-custom::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(219, 203, 158, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn-custom:hover::after {
+      left: 100%;
+    }
+
+    footer::before {
+      content: '';
+      display: block;
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-glimmer), transparent);
+      margin: 0 auto 15px auto;
+      box-shadow: 0 0 4px var(--gold-glimmer);
+    }
+
+    /* 面包屑导航 */
+    .breadcrumb-custom {
+      margin-top: 72px;
+      padding: 10px 0;
+      background: rgba(24, 35, 33, 0.6);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-dim);
+      font-size: 0.85rem;
+    }
+
+    .breadcrumb-custom a {
+      color: var(--gold-glimmer);
+      text-decoration: none;
+      transition: 0.2s;
+    }
+
+    .breadcrumb-custom a:hover {
+      color: var(--ochre-light);
+      letter-spacing: 0.5px;
+    }
+
+    .breadcrumb-item.active {
+      color: var(--dusky-cyan);
+    }
+
+    /* 返回顶部按钮 */
+    #backToTop {
+      position: fixed;
+      bottom: 40px;
+      right: 30px;
+      z-index: 99;
+      background: var(--ochre-red);
+      border: 1px solid var(--gold-glimmer);
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.3s;
+      color: #f5efdf;
+      font-size: 1.4rem;
+    }
+
+    #backToTop:hover {
+      background: var(--ochre-light);
+      color: #1E2A28;
+      transform: translateY(-3px);
+    }
+
+    /* 加载动画 */
+    .loader-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(30, 42, 40, 0.95);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(8px);
+    }
+
+    .loader-tea {
+      font-size: 3.5rem;
+      animation: teaSpin 1.6s infinite ease;
+      filter: drop-shadow(0 0 8px var(--gold-glimmer));
+    }
+
+    @keyframes teaSpin {
+      0% {
+        transform: rotate(0deg) scale(0.9);
+        opacity: 0.6;
+      }
+
+      50% {
+        transform: rotate(180deg) scale(1.2);
+        opacity: 1;
+      }
+
+      100% {
+        transform: rotate(360deg) scale(0.9);
+        opacity: 0.6;
+      }
+    }
+
+    .loader-text {
+      margin-top: 20px;
+      letter-spacing: 4px;
+      color: var(--ochre-light);
+      font-family: 'Noto Serif SC', serif;
+    }
+
+    /* 茶叶飘落动画 */
+    .tea-leaf {
+      position: fixed;
+      pointer-events: none;
+      z-index: 10;
+      font-size: 1.2rem;
+      opacity: 0.4;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 0.5;
+      }
+
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* 鎏金模态框样式 */
+    .modal-content {
+      background: rgba(30, 42, 40, 0.96);
+      backdrop-filter: blur(12px);
+      border: 2px solid var(--gold-glimmer);
+      border-radius: 40px;
+      box-shadow: 0 0 30px rgba(219, 203, 158, 0.4), inset 0 0 15px rgba(219, 203, 158, 0.1);
+      color: var(--dusky-cyan);
+    }
+
+    .modal-header {
+      border-bottom: 1px solid var(--gold-glimmer);
+      padding: 1rem 1.5rem;
+    }
+
+    .modal-header .btn-close {
+      filter: invert(1) brightness(0.8);
+      opacity: 0.7;
+      transition: 0.2s;
+    }
+
+    .modal-header .btn-close:hover {
+      filter: invert(1) brightness(1.2);
+      opacity: 1;
+    }
+
+    .modal-title {
+      font-family: '华文宋体', '宋体', 'SimSun', 'Noto Serif SC', serif;
+      color: var(--ochre-red);
+      text-shadow: 0 0 5px rgba(219, 203, 158, 0.5);
+      font-size: 1.8rem;
+    }
+
+    .modal-body {
+      padding: 1.8rem;
+    }
+
+    .modal-body img {
+      border-radius: 24px;
+      border: 1px solid var(--gold-glimmer);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 280px;
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+
+    .detail-text {
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .detail-text p {
+      margin-bottom: 0.8rem;
+    }
+
+    .detail-text strong {
+      color: var(--ochre-light);
+      font-weight: 500;
+    }
+
+    .modal-footer {
+      border-top: 1px solid rgba(219, 203, 158, 0.3);
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal-footer .btn-custom {
+      background: transparent;
+      border-color: var(--gold-glimmer);
+      color: var(--gold-glimmer);
+    }
+
+    .modal-footer .btn-custom:hover {
+      background: var(--ochre-red);
+      color: #1E2A28;
+    }
+
+    .modal-nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .modal-body {
+        display: flex;
+        gap: 2rem;
+        align-items: flex-start;
+      }
+
+      .modal-body img {
+        flex-shrink: 0;
+        width: 260px;
+      }
+
+      .detail-text {
+        flex: 1;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .modal-body {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .detail-text {
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-banner h1 {
+        font-size: 2.4rem;
+      }
+
+      .navbar-brand {
+        font-size: 1.3rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="loader" class="loader-overlay">
+    <div style="text-align:center">
+      <div class="loader-tea">🍃</div>
+      <div class="loader-text">一叶入魂 · 茶香渐起</div>
+    </div>
+  </div>
+
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">❀ 传统制茶非遗</a>
+      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav"><span
+          class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="index.html">首页</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">关于制茶</a></li>
+          <li class="nav-item"><a class="nav-link" href="works.html">制茶技艺</a></li>
+          <li class="nav-item"><a class="nav-link" href="inheritors.html">非遗传承人</a></li>
+          <li class="nav-item"><a class="nav-link" href="tea-game.html">🎮 制茶游戏</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb-custom">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item"><a href="index.html">首页</a></li>
+          <li class="breadcrumb-item active">茶韵非遗</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <div class="hero-banner">
+    <img src="https://img.shetu66.com/2024/03/19/171082711823658396.png" alt="传统制茶非遗">
+    <div class="banner-content text-center">
+      <h1>传统制茶 · 匠心传承</h1>
+      <p>国家级非物质文化遗产 | 一叶知春，千年工艺</p>
+    </div>
+  </div>
+
+  <div class="container my-5">
+    <h2 class="section-title text-center mb-5">经典茶品</h2>
+    <div class="row g-4">
+      <div class="col-md-3 mb-4">
+        <div class="card h-100" data-bs-toggle="modal" data-bs-target="#teaModal" data-id="longjing" data-index="0">
+          <img src="https://pica.zhimg.com/v2-ecff501d24d0670e343ffd35d966bd1f_720w.jpg?source=172ae18b"
+            class="uniform-img">
+          <div class="card-body">
+            <h5 class="card-title">西湖龙井</h5>
+            <p>绿茶典范，扁平挺直，色绿香郁，味甘醇美。</p>
+            <a href="works.html" class="btn btn-custom mt-2" onclick="event.stopPropagation();">了解更多</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="card h-100" data-bs-toggle="modal" data-bs-target="#teaModal" data-id="wuyi" data-index="1">
+          <img
+            src="https://d.ifengimg.com/q100/img1.ugc.ifeng.com/newugc/20191209/13/wemedia/6181543e8e3743d9bce87693904b0d74fa2bd1aa_size136_w1920_h1178.jpg"
+            class="uniform-img">
+          <div class="card-body">
+            <h5 class="card-title">武夷岩茶</h5>
+            <p>乌龙茶名品，岩骨花香，醇厚回甘。</p>
+            <a href="works.html" class="btn btn-custom mt-2" onclick="event.stopPropagation();">了解更多</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="card h-100" data-bs-toggle="modal" data-bs-target="#teaModal" data-id="qimen" data-index="2">
+          <img src="https://gd-hbimg.huaban.com/0c89ff3fb5047cc58380b003b2bbdae5c3219c7b76c29-Ke1kMw_fw658"
+            class="uniform-img">
+          <div class="card-body">
+            <h5 class="card-title">祁门红茶</h5>
+            <p>红茶翘楚，香气馥郁，滋味甜醇。</p>
+            <a href="works.html" class="btn btn-custom mt-2" onclick="event.stopPropagation();">了解更多</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="card h-100" data-bs-toggle="modal" data-bs-target="#teaModal" data-id="jasmine" data-index="3">
+          <img src="https://img.alicdn.com/bao/uploaded/i3/2200643460281/O1CN018iubR71DwkFGjyYc2_!!2200643460281.jpg"
+            class="uniform-img">
+          <div class="card-body">
+            <h5 class="card-title">茉莉花茶</h5>
+            <p>花茶名品，茶香与茉莉花香交融，鲜爽馥郁。</p>
+            <a href="works.html" class="btn btn-custom mt-2" onclick="event.stopPropagation();">了解更多</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container my-5">
+    <h2 class="section-title text-center mb-5">非遗传承人</h2>
+    <div class="row g-4">
+      <div class="col-md-3 mb-4">
+        <div class="card h-100"><img
+            src="https://ts4.tc.mm.bing.net/th/id/OIP-C.5li5ozdyee4ROnj-vsC_dQAAAA?r=0&rs=1&pid=ImgDetMain&o=7&rm=3"
+            class="uniform-img">
+          <div class="card-body">
+            <h5 class="card-title">戚国伟</h5>
+            <p>国家级传承人，龙井炒制泰斗。</p><a href="inheritors.html" class="btn btn-custom">查看详情</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="card h-100"><img src="https://dayamall.com/wp-content/uploads/2017/08/chendehua1.jpg"
+            class="uniform-img">
+          <div class="card-body">
+            <h5 class="card-title">陈德华</h5>
+            <p>武夷岩茶制作大师。</p><a href="inheritors.html" class="btn btn-custom">查看详情</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="card h-100"><img
+            src="https://ts1.tc.mm.bing.net/th/id/R-C.76bbcf04c4ec3f68d02eff188ed26fb2?rik=tx5EGdj7B4iqHQ&riu=http%3a%2f%2fresource.anhuiyun.anhuinews.com%2fahtt%2fW0202304%2fW020230403%2fW020230403223940549424.jpg&ehk=HgSzKh%2fKf%2fIO8Udo1YeiKAwvvszbFwwDopBJj6MwdNY%3d&risl=&pid=ImgRaw&r=0"
+            class="uniform-img">
+          <div class="card-body">
+            <h5 class="card-title">王昶</h5>
+            <p>祁门红茶制作代表。</p><a href="inheritors.html" class="btn btn-custom">查看详情</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="card h-100"><img
+            src="https://mediabluk.cnr.cn/img/cnr/CNRCDP/2023/0408/e7197b00d743d168095404235978455011.jpg?auth=676fc2c9b8fe34472dab07dbddf67706"
+            class="uniform-img">
+          <div class="card-body">
+            <h5 class="card-title">傅天龙</h5>
+            <p>茉莉花茶制作泰斗。</p><a href="inheritors.html" class="btn btn-custom">查看详情</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container my-5">
+    <div class="card p-4" style="background: rgba(26,38,35,0.8);">
+      <div class="row align-items-center">
+        <div class="col-lg-7">
+          <h2>关于传统制茶</h2>
+          <p>传统制茶技艺涵盖六大茶类，2022年列入人类非遗代表作名录。</p><a href="about.html" class="btn btn-custom">了解制茶文化</a>
+        </div>
+        <div class="col-lg-5 text-center"><img
+            src="https://img95.699pic.com/photo/60019/0203.jpg_wh300.jpg!/fh/300/quality/90"
+            class="rounded-circle shadow-sm"
+            style="width:200px;height:200px;object-fit:cover;border:2px solid var(--ochre-red);"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 制茶小游戏入口板块 -->
+  <div class="container my-5">
+    <div class="card p-4 text-center"
+      style="background: linear-gradient(135deg, rgba(30,42,40,0.85), rgba(26,38,35,0.9)); border: 1px solid var(--gold-glimmer);">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h2 style="color: var(--ochre-light);">🎋 非遗茶序 · 制茶小游戏 🎋</h2>
+          <p class="mt-2">拖拽排序，体验绿茶、红茶、乌龙茶三大茶类的传统工序。挑战最快记录，学习非遗制茶知识！</p>
+          <a href="tea-game.html" class="btn btn-custom mt-2" style="background: #9A5C42;">🍃 开始制茶挑战 →</a>
+        </div>
+        <div class="col-md-4">
+          <div style="font-size: 4rem;">🎮🍵</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 鎏金模态框（茶品详情）带上下切换 -->
+  <div class="modal fade" id="teaModal" tabindex="-1" aria-labelledby="teaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="teaModalLabel">茶品详情</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="teaModalBody">
+          <!-- 动态内容 -->
+        </div>
+        <div class="modal-footer">
+          <div class="modal-nav-buttons w-100">
+            <button id="prevTeaBtn" class="btn btn-custom"><i class="fas fa-chevron-left"></i> 上一味</button>
+            <button id="nextTeaBtn" class="btn btn-custom">下一味 <i class="fas fa-chevron-right"></i></button>
+          </div>
+          <button type="button" class="btn btn-custom mt-2" data-bs-dismiss="modal">关闭</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="text-white py-4">
+    <div class="container text-center">
+      <p>传统制茶非遗官网 © 2026 版权所有</p>
+      <p><a href="about.html">关于制茶</a> | <a href="works.html">制茶技艺</a> | <a href="inheritors.html">传承人</a> | <a
+          href="tea-game.html">制茶小游戏</a></p>
+    </div>
+  </footer>
+
+  <div id="backToTop"><i class="fas fa-leaf"></i></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // 茶品详细数据（完全保持不变）
+    const teaData = {
+      longjing: {
+        name: '西湖龙井',
+        title: '中国十大名茶之首 · 绿茶皇后',
+        img: 'https://pica.zhimg.com/v2-ecff501d24d0670e343ffd35d966bd1f_720w.jpg?source=172ae18b',
+        detail: `<p>西湖龙井，产于浙江杭州西湖龙井村周围群山，拥有1200多年历史。清代乾隆皇帝六次下江南，四次到龙井品茶赋诗，封胡公庙前十八棵茶树为“御茶”。</p>
+               <p><strong>产地环境：</strong>狮峰、龙井、云栖、虎跑、梅家坞五大核心产区，群山环抱，云雾缭绕，土壤富含矿物质。</p>
+               <p><strong>制作工艺：</strong>采摘一芽一叶或一芽二叶初展，经摊青、青锅、回潮、辉锅等工序，其中“抖、搭、捺、拓、甩、扣、挺、抓、压、磨”十大炒制手法为绝技。</p>
+               <p><strong>品鉴特点：</strong>外形扁平光滑、挺直尖削，色泽翠绿鲜活；汤色嫩绿明亮，香气清高持久，有豆香或兰花香；滋味鲜醇甘爽，叶底细嫩成朵。</p>
+               <p><strong>非遗地位：</strong>2008年，“西湖龙井制作技艺”列入国家级非物质文化遗产名录。</p>`
+      },
+      wuyi: {
+        name: '武夷岩茶',
+        title: '乌龙茶之祖 · 岩骨花香',
+        img: 'https://d.ifengimg.com/q100/img1.ugc.ifeng.com/newugc/20191209/13/wemedia/6181543e8e3743d9bce87693904b0d74fa2bd1aa_size136_w1920_h1178.jpg',
+        detail: `<p>武夷岩茶，产于福建武夷山，是中国乌龙茶的发源地。因“岩岩有茶，非岩不茶”而得名，最具代表性的是大红袍、铁罗汉、白鸡冠、水金龟四大名枞。</p>
+               <p><strong>独特地貌：</strong>武夷山丹霞地貌，岩石风化后形成富含矿物质的土壤，茶叶吸附岩石气息，形成独特的“岩韵”。</p>
+               <p><strong>制作工艺：</strong>萎凋→做青→杀青→揉捻→烘焙。其中“做青（摇青）”是形成岩茶品质的关键，需“看青做青，看天做青”。传统炭焙工艺使茶叶具有焦糖香和火功香。</p>
+               <p><strong>品鉴特点：</strong>条索紧结壮实，色泽乌润；汤色橙黄明亮，香气馥郁如兰，滋味醇厚回甘，岩韵明显，耐冲泡。</p>
+               <p><strong>非遗地位：</strong>2006年，“武夷岩茶（大红袍）制作技艺”列入国家级非物质文化遗产名录。</p>`
+      },
+      qimen: {
+        name: '祁门红茶',
+        title: '世界三大高香红茶之首 · 群芳最',
+        img: 'https://gd-hbimg.huaban.com/0c89ff3fb5047cc58380b003b2bbdae5c3219c7b76c29-Ke1kMw_fw658',
+        detail: `<p>祁门红茶，简称祁红，产于安徽祁门县，创制于1875年。以其独特的“祁门香”闻名世界，是英国女王和王室的至爱饮品，被誉为“红茶皇后”。</p>
+               <p><strong>产地优势：</strong>祁门地处黄山山脉，气候温和湿润，土壤肥沃，当地槠叶种茶树内含物质丰富，为祁红独特香气奠定基础。</p>
+               <p><strong>制作工艺：</strong>萎凋→揉捻→发酵→干燥→精制。发酵程度严格控制，形成红汤红叶特征。精制过程包括筛分、拣剔、补火、官堆等十几道工序。</p>
+               <p><strong>品鉴特点：</strong>外形条索紧细、锋苗秀丽，色泽乌润泛灰光；汤色红艳明亮，香气似花、似果、似蜜，称为“祁门香”；滋味鲜醇甜厚，叶底红亮柔软。</p>
+               <p><strong>非遗地位：</strong>2008年，“祁门红茶制作技艺”列入国家级非物质文化遗产名录。</p>`
+      },
+      jasmine: {
+        name: '茉莉花茶',
+        title: '人间第一香 · 窨制花茶典范',
+        img: 'https://img.alicdn.com/bao/uploaded/i3/2200643460281/O1CN018iubR71DwkFGjyYc2_!!2200643460281.jpg',
+        detail: `<p>茉莉花茶，又称茉莉香片，发源于福建福州。宋代已出现“引花入茶”的记载，明代窨制技术成熟，清代成为贡品。老舍先生曾言：“有一杯茉莉花茶，便是北平的秋天。”</p>
+               <p><strong>核心工艺：</strong>茶胚处理→鲜花养护→窨花拌和→通花散热→起花→烘焙→提花。上等茉莉花茶需“七窨一提”，即用七批茉莉花反复窨制，最后用少量优质茉莉花提香。</p>
+               <p><strong>原料讲究：</strong>茶胚多用烘青绿茶，吸香能力强；茉莉花需选用伏天午后采摘的含苞待放花朵，香气最为浓郁。</p>
+               <p><strong>品鉴特点：</strong>外形条索紧细匀整，色泽黄绿油润；汤色黄亮清澈，香气鲜灵持久，花香与茶香完美融合；滋味醇厚鲜爽，叶底嫩匀柔软。</p>
+               <p><strong>非遗地位：</strong>2014年，“福州茉莉花茶窨制工艺”列入国家级非物质文化遗产名录。2022年，“中国传统制茶技艺及其相关习俗”入选联合国非遗，茉莉花茶窨制技艺是其中的重要组成部分。</p>`
+      }
+    };
+
+    const teaOrder = ['longjing', 'wuyi', 'qimen', 'jasmine'];
+    let currentTeaIndex = 0;
+
+    function showTeaModal(index) {
+      const id = teaOrder[index];
+      const data = teaData[id];
+      if (data) {
+        const modalBody = document.getElementById('teaModalBody');
+        modalBody.innerHTML = `
+        <img src="${data.img}" alt="${data.name}" class="img-fluid">
+        <div class="detail-text">
+          <h4 style="color: var(--ochre-light); margin-bottom: 0.5rem;">${data.name}</h4>
+          <p style="font-size: 0.9rem; border-left: 2px solid var(--gold-glimmer); padding-left: 12px;">${data.title}</p>
+          ${data.detail}
+        </div>
+      `;
+        document.getElementById('teaModalLabel').innerText = data.name;
+      }
+    }
+
+    const teaModalEl = document.getElementById('teaModal');
+    teaModalEl.addEventListener('show.bs.modal', function (event) {
+      const card = event.relatedTarget;
+      const index = parseInt(card.getAttribute('data-index'));
+      if (!isNaN(index)) {
+        currentTeaIndex = index;
+        showTeaModal(currentTeaIndex);
+      }
+    });
+
+    document.getElementById('prevTeaBtn').addEventListener('click', function () {
+      currentTeaIndex = (currentTeaIndex - 1 + teaOrder.length) % teaOrder.length;
+      showTeaModal(currentTeaIndex);
+    });
+    document.getElementById('nextTeaBtn').addEventListener('click', function () {
+      currentTeaIndex = (currentTeaIndex + 1) % teaOrder.length;
+      showTeaModal(currentTeaIndex);
+    });
+
+    // 加载动画消失 + 茶叶飘落
+    window.addEventListener('load', function () {
+      const loader = document.getElementById('loader');
+      if (loader) {
+        setTimeout(function () { loader.style.opacity = '0'; setTimeout(function () { loader.remove(); }, 500); }, 500);
+      }
+      setInterval(function () {
+        let leaf = document.createElement('div');
+        leaf.className = 'tea-leaf';
+        leaf.innerHTML = '🍃';
+        leaf.style.left = Math.random() * 100 + '%';
+        leaf.style.animationDuration = 5 + Math.random() * 6 + 's';
+        document.body.appendChild(leaf);
+        setTimeout(function () { leaf.remove(); }, 10000);
+      }, 4000);
+    });
+
+    // 返回顶部按钮
+    let backBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', function () {
+      backBtn.style.display = window.scrollY > 400 ? 'flex' : 'none';
+    });
+    backBtn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  </script>
+</body>
+
+</html>

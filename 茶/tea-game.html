@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>非遗茶序·匠心造境 | 传统制茶非遗</title>
+    <!-- Bootstrap & 字体 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ===== 官网全局样式（与首页完全一致）===== */
+        :root {
+            --ink-blue: #1E2A28;
+            --ochre-red: #9A5C42;
+            --ochre-light: #C17A5C;
+            --dusky-cyan: #BAC7C3;
+            --gold-glimmer: #DBCB9E;
+            --card-bg: rgba(30, 42, 40, 0.68);
+            --border-dim: rgba(154, 92, 66, 0.35);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans SC', '思源黑体', 'Noto Serif SC', '思源宋体', 'Microsoft YaHei', sans-serif;
+            font-weight: 300;
+            background-color: var(--ink-blue);
+            color: var(--dusky-cyan);
+            line-height: 1.55;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            background-image: 
+                repeating-radial-gradient(circle at 20% 30%, rgba(200,180,130,0.04) 1px, transparent 1px),
+                repeating-linear-gradient(0deg, rgba(160,140,100,0.05) 0px, rgba(160,140,100,0.05) 1px, transparent 1px, transparent 4px),
+                repeating-linear-gradient(45deg, rgba(120,100,70,0.03) 0px, rgba(120,100,70,0.03) 2px, transparent 2px, transparent 8px);
+            background-size: 180px 180px, auto, auto;
+            opacity: 0.65;
+        }
+        body::after {
+            content: "";
+            position: fixed;
+            top:0;left:0;
+            width:100%;height:100%;
+            background: rgba(30,42,40,0.4);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .container, .navbar, footer, .hero-banner, .card { position: relative; z-index: 2; }
+
+        /* 导航栏样式（与官网一致） */
+        .navbar {
+            background: rgba(24, 35, 33, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-dim);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .navbar:hover {
+            box-shadow: 0 6px 20px rgba(219,203,158,0.15);
+            border-bottom-color: rgba(219,203,158,0.6);
+        }
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-family: '华文楷书', '华文行书', '华文宋体', 'Noto Serif SC', serif;
+            font-weight: 600;
+            background: linear-gradient(135deg, #e4c8a0, #c69c6d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent !important;
+            text-shadow: none;
+            position: relative;
+            letter-spacing: 2px;
+        }
+        .navbar-brand::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-glimmer), var(--ochre-light), var(--gold-glimmer), transparent);
+            opacity: 0.6;
+        }
+        .navbar-nav .nav-link {
+            position: relative;
+            transition: all 0.25s;
+            margin: 0 4px;
+            padding: 8px 12px;
+            border-radius: 30px;
+        }
+        .navbar-nav .nav-link.active, .navbar-nav .nav-link:hover {
+            color: var(--ochre-light) !important;
+            text-shadow: 0 0 6px rgba(193,122,92,0.6);
+            background: rgba(219,203,158,0.08);
+            box-shadow: 0 0 8px rgba(219,203,158,0.3);
+        }
+
+        /* 面包屑导航 */
+        .breadcrumb-custom {
+            margin-top: 72px;
+            padding: 10px 0;
+            background: rgba(24,35,33,0.6);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-dim);
+            font-size: 0.85rem;
+        }
+        .breadcrumb-custom a { color: var(--gold-glimmer); text-decoration: none; transition: 0.2s; }
+        .breadcrumb-custom a:hover { color: var(--ochre-light); }
+        .breadcrumb-item.active { color: var(--dusky-cyan); }
+
+        /* 返回顶部按钮 */
+        #backToTop {
+            position: fixed;
+            bottom: 40px;
+            right: 30px;
+            z-index: 99;
+            background: var(--ochre-red);
+            border: 1px solid var(--gold-glimmer);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s;
+            color: #f5efdf;
+            font-size: 1.4rem;
+        }
+        #backToTop:hover { background: var(--ochre-light); color: #1E2A28; transform: translateY(-3px); }
+
+        /* 加载动画 */
+        .loader-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(30,42,40,0.95);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+        }
+        .loader-tea { font-size: 3.5rem; animation: teaSpin 1.6s infinite ease; filter: drop-shadow(0 0 8px var(--gold-glimmer)); }
+        @keyframes teaSpin {
+            0% { transform: rotate(0deg) scale(0.9); opacity: 0.6; }
+            50% { transform: rotate(180deg) scale(1.2); opacity: 1; }
+            100% { transform: rotate(360deg) scale(0.9); opacity: 0.6; }
+        }
+        .loader-text { margin-top: 20px; letter-spacing: 4px; color: var(--ochre-light); font-family: 'Noto Serif SC', serif; }
+
+        /* 茶叶飘落动画 */
+        .tea-leaf {
+            position: fixed;
+            pointer-events: none;
+            z-index: 10;
+            font-size: 1.2rem;
+            opacity: 0.4;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0.5; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        footer {
+            background: rgba(18, 28, 26, 0.9);
+            backdrop-filter: blur(4px);
+            border-top: 1px solid var(--border-dim);
+            margin-top: 2rem;
+        }
+        footer a { color: var(--dusky-cyan); transition: 0.2s; }
+        footer a:hover { color: var(--ochre-light); }
+
+        /* ===== 游戏特有样式（融入官网色调）===== */
+        .game-container {
+            max-width: 1500px;
+            width: 100%;
+            background: rgba(30, 42, 40, 0.75);
+            backdrop-filter: blur(8px);
+            border-radius: 64px;
+            border: 1px solid rgba(154, 92, 66, 0.5);
+            box-shadow: 0 25px 40px rgba(0, 0, 0, 0.4);
+            padding: 2rem 1.8rem;
+            margin: 1.5rem auto;
+        }
+        .game-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(219, 203, 158, 0.5);
+            padding-bottom: 12px;
+        }
+        .game-header h1 {
+            font-family: '华文楷书', '华文行书', serif;
+            font-size: 2rem;
+            letter-spacing: 6px;
+            color: #DBCB9E;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+        }
+        .game-header p {
+            color: #BAC7C3;
+            font-size: 0.85rem;
+            margin-top: 6px;
+        }
+        .mode-bar { display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .mode-btn {
+            background: rgba(42, 58, 53, 0.8);
+            border: 1px solid #9A5C42;
+            padding: 8px 24px;
+            border-radius: 40px;
+            color: #e2dcc0;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .mode-btn.active { background: #9A5C42; border-color: #DBCB9E; color: #FEF3DF; box-shadow: 0 0 8px rgba(219,203,158,0.4); }
+        .mode-btn:hover { transform: translateY(-2px); background: #7a4e36; }
+        .stats-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 10px; }
+        .timer-box, .best-box { background: #2a3a35; padding: 5px 18px; border-radius: 40px; color: #DBCB9E; font-size: 0.9rem; }
+        .progress-section { flex: 1; min-width: 180px; }
+        .progress-label { display: flex; justify-content: space-between; color: #DBCB9E; font-size: 0.8rem; margin-bottom: 4px; }
+        .progress-bar-bg { background: #2a3a35; border-radius: 20px; height: 10px; overflow: hidden; }
+        .progress-fill { width: 0%; height: 100%; background: linear-gradient(90deg, #C17A5C, #DBCB9E); transition: width 0.3s; border-radius: 20px; }
+        .drop-zone { background: rgba(30, 42, 40, 0.55); border: 2px dashed #9A5C42; border-radius: 48px; padding: 1.2rem 1rem; margin-bottom: 1.8rem; transition: all 0.15s; }
+        .drop-zone.highlight { border-color: #e7bc7e; background: rgba(90, 70, 45, 0.4); box-shadow: 0 0 0 2px rgba(219,203,158,0.3); }
+        .zone-title { text-align: center; color: #DBCB9E; margin-bottom: 1rem; font-size: 0.9rem; letter-spacing: 2px; }
+        .steps-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; min-height: 130px; }
+        .craft-card {
+            width: 130px; min-width: 110px; padding: 0.9rem 0.5rem; border-radius: 48px; text-align: center;
+            font-weight: 500; font-size: 0.95rem; cursor: grab; transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            font-family: inherit; position: relative; backdrop-filter: blur(2px);
+        }
+        .craft-card:active { cursor: grabbing; }
+        .craft-card.dragging { opacity: 0.4; cursor: grabbing; transform: scale(0.95); }
+        .card-adsorb { animation: adsorbAnim 0.25s ease-out; }
+        @keyframes adsorbAnim { 0% { transform: scale(1.05); opacity: 0.8; } 100% { transform: scale(1); opacity: 1; } }
+        .card-default { background: rgba(42, 58, 53, 0.85); border: 1px solid #9A5C42; color: #f0e2c5; box-shadow: 0 4px 0 #5a3a28; }
+        .card-correct { background: rgba(70, 110, 70, 0.85); border: 2px solid #98c379; color: #e8f0e0; box-shadow: 0 0 10px rgba(100, 180, 100, 0.3); }
+        .card-wrong { background: rgba(130, 70, 60, 0.85); border: 2px solid #e08a6e; color: #ffe0d4; animation: shake 0.3s ease-in-out; }
+        @keyframes shake { 0%,100% { transform: translateX(0); } 20% { transform: translateX(-5px); } 40% { transform: translateX(5px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(3px); } }
+        .craft-card:hover { transform: translateY(-3px); filter: brightness(1.05); }
+        .source-zone { background: rgba(24, 35, 33, 0.65); border-radius: 48px; padding: 1.2rem 1rem; margin: 1rem 0 1.5rem; border: 1px solid rgba(154, 92, 66, 0.6); }
+        .button-bar { display: flex; justify-content: center; gap: 1.2rem; margin: 1.2rem 0; flex-wrap: wrap; }
+        .game-btn { background: #9A5C42; border: 1px solid #DBCB9E; padding: 10px 28px; border-radius: 60px; font-weight: bold; color: #FEF3DF; cursor: pointer; transition: 0.15s; font-family: inherit; box-shadow: 0 3px 0 #5a3520; }
+        .game-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #5a3520; }
+        .reset-btn { background: #5a6b51; border-color: #c6b07a; }
+        .answer-btn { background: #7a5e3a; }
+        .result-panel { display: flex; flex-wrap: wrap; gap: 1.2rem; margin-top: 0.8rem; }
+        .feedback-area { flex: 2; background: rgba(26, 38, 34, 0.7); border-radius: 48px; padding: 1rem 1.2rem; border-left: 6px solid #DBCB9E; color: #e2dcc0; font-size: 0.85rem; transition: all 0.2s; }
+        .feedback-success { border-left-color: #98c379; background: rgba(70,100,70,0.5); }
+        .feedback-error { border-left-color: #e08a6e; background: rgba(130,70,60,0.4); }
+        .tea-display { flex: 1; background: rgba(30, 42, 40, 0.7); border-radius: 48px; padding: 0.8rem; text-align: center; border: 1px solid rgba(219,203,158,0.5); transition: all 0.3s; cursor: pointer; }
+        .tea-icon { font-size: 2.8rem; transition: transform 0.3s; }
+        .tea-name { font-weight: bold; color: #e7cf8c; margin: 5px 0; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-content { background: #2c3b36; border-radius: 48px; max-width: 550px; width: 90%; padding: 1.8rem; border: 2px solid #DBCB9E; color: #f0e6cf; text-align: center; max-height: 85vh; overflow-y: auto; }
+        .modal-content img { max-width: 100%; border-radius: 24px; margin: 12px 0; border: 1px solid #9A5C42; }
+        .modal-close { background: #9A5C42; border: none; padding: 8px 24px; border-radius: 40px; margin-top: 1rem; cursor: pointer; color: white; font-family: inherit; }
+        .empty-placeholder { color: #9bb7ab; text-align: center; padding: 20px; font-style: italic; }
+        .sound-toggle { position: fixed; bottom: 20px; right: 20px; background: rgba(30,42,40,0.8); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.4rem; border: 1px solid #DBCB9E; z-index: 99; }
+        @media (max-width: 700px) { .craft-card { width: 100px; font-size: 0.8rem; } }
+        .game-footer { text-align: center; font-size: 0.7rem; color: #819e8f; margin-top: 1.5rem; }
+    </style>
+</head>
+<body>
+
+<!-- 加载动画 -->
+<div id="loader" class="loader-overlay"><div style="text-align:center"><div class="loader-tea">🍃</div><div class="loader-text">茶韵千年 · 匠心造境</div></div></div>
+
+<!-- 导航栏（完整版，包含所有页面链接） -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">❀ 传统制茶非遗</a>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">首页</a></li>
+                <li class="nav-item"><a class="nav-link" href="about.html">关于制茶</a></li>
+                <li class="nav-item"><a class="nav-link" href="works.html">制茶技艺</a></li>
+                <li class="nav-item"><a class="nav-link" href="inheritors.html">非遗传承人</a></li>
+                <li class="nav-item"><a class="nav-link active" href="tea-game.html">🎮 制茶游戏</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- 面包屑导航 -->
+<div class="breadcrumb-custom">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="index.html">首页</a></li>
+                <li class="breadcrumb-item active">非遗茶序·制茶游戏</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<!-- 游戏主体 -->
+<div class="container">
+    <div class="game-container">
+        <div class="game-header">
+            <h1>🍃 非遗茶序 · 匠心造境 🍂</h1>
+            <p>拖拽排序 | 习古法茶序 | 得灵韵真味</p>
+        </div>
+
+        <div class="mode-bar" id="modeBar">
+            <button data-mode="green" class="mode-btn active">🍵 绿茶模式</button>
+            <button data-mode="black" class="mode-btn">🫖 红茶模式</button>
+            <button data-mode="oolong" class="mode-btn">🍂 乌龙茶模式</button>
+        </div>
+
+        <div class="stats-row">
+            <div class="timer-box">⏱️ <span id="timerDisplay">00:00</span></div>
+            <div class="best-box">🏆 最快记录 <span id="bestTimeDisplay">--:--</span></div>
+            <div class="progress-section">
+                <div class="progress-label"><span>📜 制茶进度</span><span id="progressText">0/5</span></div>
+                <div class="progress-bar-bg"><div class="progress-fill" id="progressFill"></div></div>
+            </div>
+        </div>
+
+        <div class="drop-zone" id="dropZone">
+            <div class="zone-title">🏮 正序 · 制茶工坊 🏮</div>
+            <div class="steps-container" id="orderedSteps"></div>
+        </div>
+
+        <div class="source-zone">
+            <div class="zone-title">🍃 待选 · 制茶灵契</div>
+            <div class="steps-container" id="sourceSteps"></div>
+        </div>
+
+        <div class="button-bar">
+            <button class="game-btn" id="confirmBtn">✅ 确认答案</button>
+            <button class="game-btn answer-btn" id="viewAnswerBtn">📖 查看正确答案</button>
+            <button class="game-btn reset-btn" id="restartBtn">🔄 重新开始</button>
+        </div>
+
+        <div class="result-panel">
+            <div class="feedback-area" id="feedbackMsg">✨ 拖拽卡片到上方工坊，按正确茶序排列 | 点击卡片可查看工序详解</div>
+            <div class="tea-display" id="teaDisplay">
+                <div class="tea-icon">🍃</div>
+                <div class="tea-name">未成茶</div>
+                <div class="tea-desc" style="font-size:0.7rem;">完成排序解锁茶韵</div>
+            </div>
+        </div>
+        <div class="game-footer">非遗技艺 | 点击卡片可查看工序详解 | 拖拽时目标区域高亮 | 排序正确解锁茶知识</div>
+    </div>
+</div>
+
+<footer class="text-white py-4">
+    <div class="container text-center">
+        <p>传统制茶非遗官网 © 2026 版权所有</p>
+        <p><a href="index.html">首页</a> | <a href="about.html">关于制茶</a> | <a href="works.html">制茶技艺</a> | <a href="inheritors.html">传承人</a> | <a href="tea-game.html">制茶小游戏</a></p>
+    </div>
+</footer>
+
+<div id="backToTop"><i class="fas fa-leaf"></i></div>
+<div id="knowledgeModal" class="modal"><div class="modal-content" id="modalContent"></div></div>
+<div class="sound-toggle" id="soundToggle" title="音效开关">🔊</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // ==================== 制茶游戏完整逻辑 ====================
+    const TEA_DATA = {
+        green: { 
+            name: "绿茶", correct: ["采摘","萎凋","杀青","揉捻","干燥"], 
+            desc: "绿茶是不发酵茶，杀青是关键工序，保留天然物质。西湖龙井、碧螺春为代表。2008年西湖龙井制作技艺列入国家级非遗。",
+            img: "https://img95.699pic.com/photo/60019/8196.jpg_wh300.jpg!/fh/300/quality/90",
+            steps: { "采摘":"🌱 采摘一芽一叶或一芽二叶初展，清晨带露采下，保持鲜灵。非遗讲究：提手采，轻采轻放。","萎凋":"🍃 薄摊晾青，散失青草气，增加韧性。传统竹筛摊放，厚度均匀。","杀青":"🔥 高温迅速破坏酶活性，锁住绿叶清香。传统铁锅手工翻炒，十大手法：抖、搭、捺、拓、甩、扣、挺、抓、压、磨。","揉捻":"✋ 揉搓成形，使茶汁附着叶表，塑造扁平挺直外形。","干燥":"☀️ 烘干定型，提香固韵，使含水量低于5%。" } },
+        black: { 
+            name: "红茶", correct: ["采摘","萎凋","揉捻","发酵","干燥"],
+            desc: "全发酵茶，性温养胃。祁门红茶工夫红茶制作技艺乃国家级非遗，以其“祁门香”闻名世界。",
+            img: "https://qnam.smzdm.com/202408/10/66b6ce313d07c4807.jpg_e1080.jpg",
+            steps: { "采摘":"🌱 鲜嫩芽叶，一芽二叶为主，保持完整。","萎凋":"🍃 散失水分，叶片柔软，青草气减退。","揉捻":"✋ 破坏细胞，茶汁溢出，为发酵做准备。","发酵":"🔄 氧化红变，生成茶黄素和茶红素，形成红叶红汤，产生花果香。","干燥":"☀️ 高温固定品质，散发香气，形成醇厚滋味。" } },
+        oolong: { 
+            name: "乌龙茶", correct: ["采摘","萎凋","摇青","炒青","揉捻","烘焙"],
+            desc: "半发酵茶，岩骨花香。武夷岩茶大红袍制作技艺是国家级非遗，做青工艺形成绿叶红镶边。",
+            img: "https://n.sinaimg.cn/sinakd20220430ac/543/w786h557/20220430/abcc-9b26accd9b0913aa9031ca77b5d6bb24.jpg",
+            steps: { "采摘":"🌱 开面采，新梢形成驻芽，三四叶成熟度。","萎凋":"🍃 晒青蒸发水分，促进香气形成。","摇青":"🫧 摇青晾青交替，叶片边缘摩擦氧化，形成绿叶红镶边，这是乌龙茶特有的工艺。","炒青":"🔥 抑制发酵，固定品质，锁住香气。","揉捻":"✋ 塑形，挤出茶汁，形成紧结外形。","烘焙":"🍂 炭焙提香，形成独特火功香，耐冲泡。" } }
+    };
+
+    let currentMode = "green", currentCorrect = [...TEA_DATA.green.correct], orderList = [], sourceList = [], gameCompleted = false;
+    let bestTime = localStorage.getItem("teaBestTime"), startTime = null, timerInterval = null, soundEnabled = true;
+
+    function formatTime(sec) { let m = Math.floor(sec/60), s = sec%60; return `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`; }
+    function updateBestDisplay() { document.getElementById("bestTimeDisplay").innerText = bestTime ? formatTime(parseInt(bestTime)) : "--:--"; }
+    function startTimer() { if(timerInterval) clearInterval(timerInterval); startTime = Date.now(); timerInterval = setInterval(() => { if(!gameCompleted && startTime) document.getElementById("timerDisplay").innerText = formatTime(Math.floor((Date.now()-startTime)/1000)); }, 500); }
+    function stopTimer() { if(timerInterval) { clearInterval(timerInterval); timerInterval = null; } }
+    function getElapsed() { return startTime ? Math.floor((Date.now()-startTime)/1000) : 0; }
+    function playSound(type) { if(!soundEnabled) return; try { let ctx = new (window.AudioContext||window.webkitAudioContext)(); let o = ctx.createOscillator(), g = ctx.createGain(); o.connect(g); g.connect(ctx.destination); o.type="sine"; if(type==="drop"){ o.frequency.value=523.25; g.gain.value=0.1; o.start(); o.stop(ctx.currentTime+0.2); } else if(type==="success"){ o.frequency.value=659.25; g.gain.value=0.15; o.start(); o.stop(ctx.currentTime+0.3); } else if(type==="error"){ o.frequency.value=220; g.gain.value=0.12; o.start(); o.stop(ctx.currentTime+0.25); } else if(type==="click"){ o.frequency.value=440; g.gain.value=0.05; o.start(); o.stop(ctx.currentTime+0.1); } setTimeout(()=>ctx.close(),500); } catch(e){} }
+    function arraysEqual(a,b) { if(a.length!==b.length) return false; for(let i=0;i<a.length;i++) if(a[i]!==b[i]) return false; return true; }
+    function showFeedback(msg, type) { let fb = document.getElementById("feedbackMsg"); fb.innerHTML = `✨ ${msg}`; fb.classList.remove('feedback-success','feedback-error'); if(type==='success') fb.classList.add('feedback-success'); else if(type==='error') fb.classList.add('feedback-error'); }
+    function updateProgress() { let len = orderList.length, total = currentCorrect.length, percent = (len/total)*100; document.getElementById("progressFill").style.width = percent+"%"; document.getElementById("progressText").innerText = `${len}/${total}`; }
+    function closeModal() { document.getElementById("knowledgeModal").style.display = "none"; }
+    window.closeModal = closeModal;
+
+    function showStepKnowledge(step) {
+        let modeData = TEA_DATA[currentMode];
+        let detail = modeData.steps[step] || `${step}是传统制茶关键工序，凝聚匠人智慧。`;
+        document.getElementById("modalContent").innerHTML = `<h3>🍃 ${step}</h3><p style="margin:12px 0">${detail}</p><p style="font-size:0.8rem; color:#dbc79e;">🏮 非遗传承 · 匠心古法</p><button class="modal-close" onclick="closeModal()">关闭</button>`;
+        document.getElementById("knowledgeModal").style.display = "flex";
+        playSound('click');
+    }
+
+    function finishGameWin() {
+        if(gameCompleted) return;
+        gameCompleted = true; stopTimer();
+        let elapsed = getElapsed();
+        if(!bestTime || elapsed < parseInt(bestTime)) { localStorage.setItem("teaBestTime", elapsed); bestTime = elapsed; updateBestDisplay(); showFeedback(`🎉 通关！刷新最快记录 ${formatTime(elapsed)} 🎉`, "success"); playSound('success'); }
+        else showFeedback(`✅ 完美排序！用时 ${formatTime(elapsed)}`, "success");
+        let modeInfo = TEA_DATA[currentMode];
+        document.getElementById("teaDisplay").innerHTML = `<div class="tea-icon">🏆🍵</div><div class="tea-name">${modeInfo.name}·非遗灵韵</div><div class="tea-desc">${modeInfo.desc.substring(0,80)}...</div>`;
+        document.getElementById("modalContent").innerHTML = `<div style="text-align:center"><h3>🍃 ${modeInfo.name} 非遗小知识</h3><img src="${modeInfo.img}" alt="${modeInfo.name}茶叶" onerror="this.src='https://picsum.photos/id/102/300/200'"><p>${modeInfo.desc}</p><button class="modal-close" onclick="closeModal()">收下茶识</button></div>`;
+        document.getElementById("knowledgeModal").style.display = "flex";
+        renderGame();
+    }
+
+    function createCard(step, idx, zone, isPositionCorrect) {
+        let card = document.createElement('div');
+        let baseClass = 'craft-card ';
+        if(zone === 'order') {
+            if(isPositionCorrect) baseClass += 'card-correct';
+            else if(gameCompleted) baseClass += 'card-default';
+            else baseClass += 'card-wrong';
+        } else baseClass += 'card-default';
+        card.className = baseClass;
+        card.setAttribute('draggable', 'true');
+        card.setAttribute('data-step', step);
+        card.setAttribute('data-zone', zone);
+        card.setAttribute('data-idx', idx);
+        let icon = { "采摘":"🌱","萎凋":"🍃","杀青":"🔥","揉捻":"✋","干燥":"☀️","摇青":"🫧","炒青":"🔥","发酵":"🔄","烘焙":"🍂" }[step] || "🍃";
+        card.innerHTML = `${icon} ${step}`;
+        card.ondragstart = (e) => { if(gameCompleted) { e.preventDefault(); return; } e.dataTransfer.setData('text/plain', JSON.stringify({ step, zone, idx })); e.dataTransfer.effectAllowed = 'move'; card.classList.add('dragging'); playSound('click'); };
+        card.ondragend = (e) => { card.classList.remove('dragging'); document.getElementById('dropZone').classList.remove('highlight'); };
+        card.onclick = (e) => { e.stopPropagation(); showStepKnowledge(step); };
+        return card;
+    }
+
+    function renderGame() {
+        let orderedContainer = document.getElementById("orderedSteps"), sourceContainer = document.getElementById("sourceSteps");
+        orderedContainer.innerHTML = "";
+        if(orderList.length===0) orderedContainer.innerHTML = `<div class="empty-placeholder">将工序拖拽至此，按正确顺序排列</div>`;
+        orderList.forEach((step, idx) => { let isCorrectPos = (currentCorrect[idx] === step); orderedContainer.appendChild(createCard(step, idx, "order", isCorrectPos)); });
+        sourceContainer.innerHTML = "";
+        if(sourceList.length===0) sourceContainer.innerHTML = `<div class="empty-placeholder">✨ 所有工序已放入工坊 ✨</div>`;
+        sourceList.forEach((step, idx) => { sourceContainer.appendChild(createCard(step, idx, "source", false)); });
+        updateProgress();
+        if(orderList.length===currentCorrect.length && arraysEqual(orderList,currentCorrect) && !gameCompleted) finishGameWin();
+        attachDragEvents();
+    }
+
+    function attachDragEvents() {
+        let orderZone = document.getElementById('dropZone'), sourceZoneDiv = document.querySelector('.source-zone');
+        let dragOverHandler = (e) => { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; e.currentTarget.classList.add('highlight'); };
+        let dragLeaveHandler = (e) => { e.currentTarget.classList.remove('highlight'); };
+        orderZone.ondragover = dragOverHandler; orderZone.ondragleave = dragLeaveHandler;
+        sourceZoneDiv.ondragover = dragOverHandler; sourceZoneDiv.ondragleave = dragLeaveHandler;
+        orderZone.ondrop = (e) => { e.preventDefault(); orderZone.classList.remove('highlight'); handleDrop(e, 'order'); };
+        sourceZoneDiv.ondrop = (e) => { e.preventDefault(); sourceZoneDiv.classList.remove('highlight'); handleDrop(e, 'source'); };
+    }
+
+    function handleDrop(e, targetZone) {
+        if(gameCompleted) { showFeedback("茶已大成，请重置后继续", "error"); playSound('error'); return; }
+        let raw = e.dataTransfer.getData('text/plain'); if(!raw) return;
+        let { step, zone, idx } = JSON.parse(raw);
+        if(zone === 'order') {
+            if(idx>=orderList.length) return;
+            orderList.splice(idx,1);
+            if(targetZone === 'order') {
+                let targetIdx = orderList.length, targetCard = e.target.closest('.craft-card');
+                if(targetCard && targetCard.parentNode === document.getElementById("orderedSteps")) {
+                    let tStep = targetCard.getAttribute('data-step'), tIdx = orderList.findIndex(s=>s===tStep);
+                    if(tIdx!==-1) targetIdx = tIdx;
+                }
+                orderList.splice(targetIdx,0,step);
+                showFeedback(`「${step}」顺序已调整`, "success");
+                playSound('drop');
+            } else { sourceList.push(step); showFeedback(`「${step}」移回待选区`, "info"); playSound('drop'); }
+        } else if(zone === 'source') {
+            if(idx>=sourceList.length) return;
+            sourceList.splice(idx,1);
+            if(targetZone === 'order') {
+                let targetIdx = orderList.length, targetCard = e.target.closest('.craft-card');
+                if(targetCard && targetCard.parentNode === document.getElementById("orderedSteps")) {
+                    let tStep = targetCard.getAttribute('data-step'), tIdx = orderList.findIndex(s=>s===tStep);
+                    if(tIdx!==-1) targetIdx = tIdx;
+                }
+                orderList.splice(targetIdx,0,step);
+                showFeedback(`「${step}」放入工坊`, "success");
+                playSound('drop');
+            } else { sourceList.splice(targetIdx,0,step); showFeedback(`「${step}」调整位置`, "info"); playSound('drop'); }
+        }
+        renderGame();
+        let cardElem = document.querySelector(`.craft-card[data-step="${step}"]`);
+        if(cardElem) { cardElem.classList.add('card-adsorb'); setTimeout(()=> cardElem.classList.remove('card-adsorb'), 250); }
+        if(orderList.length===currentCorrect.length && arraysEqual(orderList,currentCorrect)) finishGameWin();
+    }
+
+    function checkAnswer() {
+        if(gameCompleted) { showFeedback("茶已大成，重置后可继续", "error"); return; }
+        if(orderList.length !== currentCorrect.length) { showFeedback(`工序未满！当前${orderList.length}/${currentCorrect.length}`, "error"); playSound('error'); return; }
+        let errors=[];
+        for(let i=0;i<currentCorrect.length;i++) if(orderList[i]!==currentCorrect[i]) errors.push(`第${i+1}位应为「${currentCorrect[i]}」目前是「${orderList[i]}」`);
+        if(errors.length===0) finishGameWin();
+        else { showFeedback(`⚠️ 排序错误：${errors.join("；")}`, "error"); playSound('error'); renderGame(); }
+    }
+
+    function resetGame() {
+        if(confirm("重置将清空当前进度，确定重开茶局？")) {
+            stopTimer(); gameCompleted=false;
+            let modeData = TEA_DATA[currentMode];
+            currentCorrect = [...modeData.correct];
+            let shuffled = [...currentCorrect];
+            for(let i=shuffled.length-1;i>0;i--){ let j=Math.floor(Math.random()*(i+1)); [shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]]; }
+            sourceList = shuffled; orderList = [];
+            startTimer(); renderGame();
+            document.getElementById("teaDisplay").innerHTML = `<div class="tea-icon">🍃</div><div class="tea-name">未成茶</div><div class="tea-desc">正确排序解锁茶韵</div>`;
+            showFeedback("茶局重启，重新排序吧", "success");
+            playSound('click');
+        }
+    }
+
+    function switchMode(mode) {
+        if(gameCompleted && !confirm("切换模式会重置进度，确定吗？")) return;
+        stopTimer(); gameCompleted=false;
+        currentMode = mode;
+        let modeData = TEA_DATA[mode];
+        currentCorrect = [...modeData.correct];
+        let shuffled = [...currentCorrect];
+        for(let i=shuffled.length-1;i>0;i--){ let j=Math.floor(Math.random()*(i+1)); [shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]]; }
+        sourceList = shuffled; orderList = [];
+        startTimer(); renderGame();
+        document.getElementById("teaDisplay").innerHTML = `<div class="tea-icon">🍃</div><div class="tea-name">${modeData.name}模式</div><div class="tea-desc">拖拽排序领略非遗</div>`;
+        showFeedback(`切换到${modeData.name}模式，工序：${currentCorrect.join("→")}`, "success");
+        playSound('click');
+    }
+
+    function viewCorrectAnswer() { alert(`📜 正确答案（${TEA_DATA[currentMode].name}）：\n${currentCorrect.join(" → ")}\n\n${TEA_DATA[currentMode].desc}`); playSound('click'); }
+
+    // 事件绑定与初始化
+    document.querySelectorAll(".mode-btn").forEach(btn=>{ btn.addEventListener("click",()=>{ document.querySelectorAll(".mode-btn").forEach(b=>b.classList.remove("active")); btn.classList.add("active"); switchMode(btn.dataset.mode); }); });
+    document.getElementById("confirmBtn").onclick = checkAnswer;
+    document.getElementById("restartBtn").onclick = resetGame;
+    document.getElementById("viewAnswerBtn").onclick = viewCorrectAnswer;
+    document.getElementById("soundToggle").onclick = () => { soundEnabled = !soundEnabled; document.getElementById("soundToggle").innerHTML = soundEnabled ? "🔊" : "🔇"; };
+    document.getElementById("teaDisplay").onclick = () => { if(gameCompleted) showStepKnowledge(TEA_DATA[currentMode].name); else alert("完成排序后，可查看该茶类的非遗知识"); };
+    updateBestDisplay(); startTimer(); switchMode("green");
+
+    // 加载动画消失 + 茶叶飘落
+    window.addEventListener('load', function() {
+        let loader = document.getElementById('loader');
+        if(loader) { setTimeout(() => { loader.style.opacity = '0'; setTimeout(() => loader.remove(), 500); }, 500); }
+        setInterval(() => { let leaf = document.createElement('div'); leaf.className = 'tea-leaf'; leaf.innerHTML = '🍃'; leaf.style.left = Math.random() * 100 + '%'; leaf.style.animationDuration = 5 + Math.random() * 6 + 's'; document.body.appendChild(leaf); setTimeout(() => leaf.remove(), 10000); }, 4000);
+    });
+    let backBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => { backBtn.style.display = window.scrollY > 400 ? 'flex' : 'none'; });
+    backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>
